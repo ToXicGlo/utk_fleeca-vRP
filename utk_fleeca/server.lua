@@ -3,6 +3,7 @@ local Proxy = module("vrp", "lib/Proxy")
 
 vRP = Proxy.getInterface("vRP")
 
+ServerPlayers = true
 Doors = {
     ["F1"] = {{loc = vector3(312.93, -284.45, 54.16), h = 160.91, txtloc = vector3(312.93, -284.45, 54.16), obj = nil, locked = true}, {loc = vector3(310.93, -284.44, 54.16), txtloc = vector3(310.93, -284.44, 54.16), state = nil, locked = true}},
     ["F2"] = {{loc = vector3(148.76, -1045.89, 29.37), h = 158.54, txtloc = vector3(148.76, -1045.89, 29.37), obj = nil, locked = true}, {loc = vector3(146.61, -1046.02, 29.37), txtloc = vector3(146.61, -1046.02, 29.37), state = nil, locked = true}},
@@ -80,6 +81,10 @@ end)
 RegisterServerEvent("utk_fh:startLoot")
 AddEventHandler("utk_fh:startLoot", function(data, name, players)
     local _source = source
+
+    if ServerPlayers then
+        TriggerClientEvent("utk_fh:startLoot_c", data, name)
+    end
     TriggerClientEvent("utk_fh:startLoot_c", _source, data, name)
 end)
 
